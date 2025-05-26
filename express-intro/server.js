@@ -5,22 +5,21 @@ const connectionString = process.env.PG_URI;
 // console.log(connectionString);
 const pool = new Pool({ connectionString });
 
-// Daten im Arbeitspeicher - sont nicht üblich, hier nur als Beispiel
+// Daten im Arbeitspeicher - sonst nicht üblich, hier nur als Beispiel
 const books = [
   { id: 1, title: 'Wheel of Time' },
   { id: 2, title: 'The Hobbit' },
 ];
 
-// http.createServer()
+// anstelle von http.createServer()
 const app = express();
 
+// Konfiguration von Express, um JSON-Daten zu empfangen.
 app.use(express.json());
 
-app.get('/users', async (req, res) => {
-  const { rows } = await pool.query('SELECT * from users;');
-  res.json({ data: rows });
-});
+// CRUD - Create, Read, Update, Delete
 
+// Alle Bücher
 app.get('/books', async (req, res) => {
   const { rows } = await pool.query('SELECT * from books; ');
   // res.json(books);
@@ -28,6 +27,7 @@ app.get('/books', async (req, res) => {
   res.json({ message: 'Here are all the books', data: rows });
 });
 
+// Ein einzelnes Buch
 app.get('/books/:bookId', async (req, res) => {
   const { bookId } = req.params;
   // console.log(bookId);
@@ -37,6 +37,7 @@ app.get('/books/:bookId', async (req, res) => {
   res.json({ message: 'Here the book', data: rows[0] });
 });
 
+//  Ein neues Buch erstellen
 app.post('/books', async (req, res) => {
   // const { title, author, genre } = req.body;
   const { title } = req.body;
@@ -48,6 +49,7 @@ app.post('/books', async (req, res) => {
   res.json({ message: 'This is the book post endpoint', data: rows });
 });
 
+// Ein Buch updaten/editieren
 app.put('/books/:bookId', async (req, res) => {
   const { bookId } = req.params;
   const { title } = req.body;
@@ -71,6 +73,7 @@ app.put('/books/:bookId', async (req, res) => {
   res.json({ message: `Updated book no. ${req.params.bookId}`, data: rows[0] });
 });
 
+// Ein Buch löschen
 app.delete('/books/:bookId', async (req, res) => {
   const { bookId } = req.params;
 
@@ -84,5 +87,5 @@ app.delete('/books/:bookId', async (req, res) => {
   res.json({ message: `Deleted book no. ${req.params.bookId}`, data: rows[0] });
 });
 
-// server.listen
+// ansstelle server.listen
 app.listen(3000, () => console.log(`Server läuft auf port 3000`));
