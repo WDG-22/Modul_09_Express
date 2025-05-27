@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { Pool } from 'pg';
 
 const connectionString = process.env.PG_URI;
@@ -16,6 +17,7 @@ const app = express();
 
 // Konfiguration von Express, um JSON-Daten zu empfangen.
 app.use(express.json());
+app.use(cors());
 
 // CRUD - Create, Read, Update, Delete
 
