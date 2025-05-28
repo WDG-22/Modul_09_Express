@@ -103,7 +103,7 @@ app.put('/products/:id', async (req, res) => {
         stock = COALESCE($6, stock)
       WHERE id = $7
       RETURNING name, image, description, category, (price::money / 100) as price, stock;
-      `, // Im REturning könnt ihr euch auch aussuchen, was zurückgegeben werden soll, auch evt. Operationen durchführen.
+      `, // Im Returning könnt ihr euch auch aussuchen, was zurückgegeben werden soll, auch evt. Operationen durchführen.
       [name, image, description, category, priceInCent, stock, id]
     );
 

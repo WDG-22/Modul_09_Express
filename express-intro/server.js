@@ -89,5 +89,5 @@ app.delete('/books/:bookId', async (req, res) => {
   res.json({ message: `Deleted book no. ${req.params.bookId}`, data: rows[0] });
 });
 
-// ansstelle server.listen
+// anstelle von server.listen
 app.listen(3000, () => console.log(`Server läuft auf port 3000`));
