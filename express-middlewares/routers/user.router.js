@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { User, Note, UsersNotes } from '../models/associations.js';
 import { getAllUsers, createUser, getOneUser, updateUser, deletUser } from '../controllers/user.controllers.js';
+import validateUserBody from '../middlewares/validateUserBody.js';
 
 const myMiddleware = (req, res, next) => {
   console.log('GETTING ONE USER');
@@ -17,7 +18,7 @@ userRouter.use((req, res, next) => {
   next();
 });
 
-userRouter.post('/', createUser);
+userRouter.post('/', validateUserBody, createUser);
 userRouter.get(
   '/:id',
   myMiddleware,
@@ -27,7 +28,7 @@ userRouter.get(
   },
   getOneUser
 );
-userRouter.put('/:id', updateUser);
+userRouter.put('/:id', validateUserBody, updateUser);
 userRouter.delete('/:id', deletUser);
 
 export default userRouter;

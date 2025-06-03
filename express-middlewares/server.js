@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
-  // throw new Error('Gremlin', { cause: { statusCode: 418 } });
+  throw new Error('Gremlin', { cause: { statusCode: 418 } });
 
   res.json({ msg: 'Server healthy' });
 });
@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
 app.use('/users', userRouter);
 app.use('/notes', noteRouter);
 
-app.use('/*splat', () => {
+app.all('/*splat', () => {
   throw new Error('Page not found', { cause: { statusCode: 404 } });
 });
 
