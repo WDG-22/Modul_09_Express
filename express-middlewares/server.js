@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
 app.use('/users', userRouter);
 app.use('/notes', noteRouter);
 
-app.all('/*splat', () => {
+app.all('/{*splat}', () => {
   throw new Error('Page not found', { cause: { statusCode: 404 } });
 });
 
